@@ -12,7 +12,7 @@ const Leagues = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTab, setSelectedTab] = useState("all");
 
-  // Sample league data
+  // Cricket-only league data
   const leagues: League[] = [
     {
       id: "1",
@@ -38,9 +38,9 @@ const Leagues = () => {
     },
     {
       id: "3",
-      name: "NFL Draft Masters",
-      sport: "nfl",
-      creator: "GridironGuru",
+      name: "World Cup Legends",
+      sport: "cricket",
+      creator: "CricketMaster",
       members: 6,
       maxMembers: 12,
       status: "draft",
@@ -49,25 +49,36 @@ const Leagues = () => {
     },
     {
       id: "4",
-      name: "Basketball Elite",
-      sport: "nba",
-      creator: "HoopsHero",
-      members: 10,
-      maxMembers: 16,
+      name: "T20 Blast League",
+      sport: "cricket",
+      creator: "T20Expert",
+      members: 9,
+      maxMembers: 10,
       status: "active",
-      budget: 1800000,
-      auctionDate: new Date("2024-02-05")
+      budget: 1200000,
+      auctionDate: new Date("2024-02-12")
     },
     {
       id: "5",
-      name: "Tennis Grand Slam",
-      sport: "tennis",
-      creator: "AcePlayer",
+      name: "Cricket All-Stars",
+      sport: "cricket",
+      creator: "AllStarFan",
       members: 4,
       maxMembers: 8,
       status: "draft",
       budget: 800000,
       auctionDate: new Date("2024-02-25")
+    },
+    {
+      id: "6",
+      name: "Big Bash League Pro",
+      sport: "cricket",
+      creator: "BBLFan",
+      members: 7,
+      maxMembers: 10,
+      status: "active",
+      budget: 1100000,
+      auctionDate: new Date("2024-02-08")
     }
   ];
 
@@ -98,15 +109,8 @@ const Leagues = () => {
   };
 
   const getSportIcon = (sport: string) => {
-    const icons: Record<string, string> = {
-      cricket: "🏏",
-      nfl: "🏈", 
-      nba: "🏀",
-      rugby: "🏉",
-      tennis: "🎾",
-      golf: "⛳"
-    };
-    return icons[sport] || "🏆";
+    // Cricket-only for now
+    return "🏏";
   };
 
   return (

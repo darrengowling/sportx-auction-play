@@ -243,11 +243,11 @@ const Home = () => {
                 size="lg"
                 className="touch-target"
                 onClick={() => {
-                  toast.success("Welcome, guest! Explore all features 🎮");
-                  navigate("/auctions");
+                  toast.success("Learn how it works first! 📚");
+                  navigate("/how-it-works");
                 }}
               >
-                Continue as Guest
+                How it Works
               </Button>
             </div>
           </div>

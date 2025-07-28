@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "wouter";
-import { Home, Trophy, Users, Settings, User } from "lucide-react";
+import { Home, Trophy, Users, Settings, User, HelpCircle } from "lucide-react";
 import toast from 'react-hot-toast';
 
 const Navigation = () => {
@@ -10,6 +10,7 @@ const Navigation = () => {
     { path: "/", icon: Home, label: "Home" },
     { path: "/auctions", icon: Trophy, label: "Auctions" },
     { path: "/leagues", icon: Users, label: "Leagues" },
+    { path: "/how-it-works", icon: HelpCircle, label: "How it Works" },
     { path: "/profile", icon: User, label: "Profile" },
     { path: "/settings", icon: Settings, label: "Settings" },
   ];
@@ -24,10 +25,10 @@ const Navigation = () => {
               <Button
                 variant={location === path ? "default" : "ghost"}
                 size="sm"
-                className="flex flex-col h-auto py-2 px-3 min-w-[60px]"
+                className="flex flex-col h-auto py-2 px-2 min-w-[55px]"
               >
                 <Icon className="h-4 w-4 mb-1" />
-                <span className="text-xs">{label}</span>
+                <span className="text-xs">{label === "How it Works" ? "Guide" : label}</span>
               </Button>
             </Link>
           ))}

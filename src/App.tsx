@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 import Home from "@/pages/Home";
 import Auctions from "@/pages/Auctions";
 import Leagues from "@/pages/Leagues";
+import HowItWorks from "@/pages/HowItWorks";
 import Profile from "@/pages/Profile";
 import NotFound from "./pages/NotFound";
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" component={Home} />
           <Route path="/auctions" component={Auctions} />
           <Route path="/leagues" component={Leagues} />
+          <Route path="/how-it-works" component={HowItWorks} />
           <Route path="/profile" component={Profile} />
           <Route path="/settings" component={() => <div className="min-h-screen pt-20 pb-20 flex items-center justify-center"><div className="text-center"><h1 className="text-2xl font-bold mb-4">Settings</h1><p className="text-muted-foreground">Coming soon...</p></div></div>} />
           <Route path="/sport/:sportId" component={() => <div className="min-h-screen pt-20 pb-20 flex items-center justify-center"><div className="text-center"><h1 className="text-2xl font-bold mb-4">Sport Details</h1><p className="text-muted-foreground">Coming soon...</p></div></div>} />

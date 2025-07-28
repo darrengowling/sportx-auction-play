@@ -1,0 +1,14 @@
+{
+  "appId": "app.lovable.be37ec82b4fb4ac48a70c6a3ab343a25",
+  "appName": "sportx-auction-play",
+  "webDir": "dist",
+  "server": {
+    "url": "https://be37ec82-b4fb-4ac4-8a70-c6a3ab343a25.lovableproject.com?forceHideBadge=true",
+    "cleartext": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

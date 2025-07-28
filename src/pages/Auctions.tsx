@@ -4,9 +4,12 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import AuctionCard from "@/components/AuctionCard";
+import { EmptyState } from "@/components/LoadingStates";
+import { cricketPlayers } from "@/data/cricketPlayers";
 import { Player } from "@/types/sports";
 import { Search, Filter, SortDesc, Trophy, Clock, Users } from "lucide-react";
 import { useLocation } from "wouter";
+import toast from 'react-hot-toast';
 
 const Auctions = () => {
   const [, navigate] = useLocation();
@@ -15,69 +18,8 @@ const Auctions = () => {
     navigate(`/auction/${player.id}`);
   };
 
-  // Sample cricket auction data
-  const auctions: Player[] = [
-    {
-      id: "1",
-      name: "Virat Kohli",
-      sport: "cricket",
-      position: "Batsman",
-      rating: 95,
-      price: 850000,
-      image: "",
-      stats: { runs: 12000, average: 59.07, centuries: 70 }
-    },
-    {
-      id: "2", 
-      name: "MS Dhoni",
-      sport: "cricket",
-      position: "Wicket Keeper",
-      rating: 92,
-      price: 750000,
-      image: "",
-      stats: { runs: 10500, sixes: 229, matches: 350 }
-    },
-    {
-      id: "3",
-      name: "Rohit Sharma", 
-      sport: "cricket",
-      position: "Batsman",
-      rating: 91,
-      price: 680000,
-      image: "",
-      stats: { runs: 9500, average: 48.96, doublecenturies: 3 }
-    },
-    {
-      id: "4",
-      name: "Jasprit Bumrah",
-      sport: "cricket", 
-      position: "Bowler",
-      rating: 94,
-      price: 720000,
-      image: "",
-      stats: { wickets: 130, economy: 4.2, average: 24.5 }
-    },
-    {
-      id: "5",
-      name: "KL Rahul",
-      sport: "cricket",
-      position: "Wicket Keeper",
-      rating: 88,
-      price: 580000,
-      image: "",
-      stats: { runs: 8000, average: 47.1, strikerate: 135.2 }
-    },
-    {
-      id: "6",
-      name: "Hardik Pandya",
-      sport: "cricket",
-      position: "All Rounder", 
-      rating: 90,
-      price: 650000,
-      image: "",
-      stats: { runs: 4500, wickets: 85, sixes: 156 }
-    }
-  ];
+  // Use expanded cricket player data
+  const auctions = cricketPlayers;
 
   const filteredAuctions = auctions.filter(player => {
     const matchesSearch = player.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -98,7 +40,12 @@ const Auctions = () => {
               Bid on cricket stars and build your dream team
             </p>
           </div>
-          <Button variant="auction" size="lg" className="mt-4 md:mt-0">
+          <Button 
+            variant="auction" 
+            size="lg" 
+            className="mt-4 md:mt-0 touch-target"
+            onClick={() => toast.success("Create auction feature coming soon! 🎯")}
+          >
             <Trophy className="mr-2 h-5 w-5" />
             Create Auction
           </Button>
@@ -133,11 +80,21 @@ const Auctions = () => {
           </div>
 
           <div className="flex gap-2">
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="touch-target"
+              onClick={() => toast.success("Advanced filters coming soon! 🔧")}
+            >
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="touch-target"
+              onClick={() => toast.success("Sort options coming soon! 📊")}
+            >
               <SortDesc className="h-4 w-4 mr-2" />
               Sort
             </Button>
@@ -160,13 +117,20 @@ const Auctions = () => {
         </div>
 
         {filteredAuctions.length === 0 && (
-          <div className="text-center py-12">
-            <Trophy className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No auctions found</h3>
-            <p className="text-muted-foreground">
-              Try adjusting your search criteria or check back later for new auctions.
-            </p>
-          </div>
+          <EmptyState
+            icon={<Trophy className="h-16 w-16 mx-auto" />}
+            title="No auctions found"
+            description="Try adjusting your search criteria or check back later for new auctions."
+            action={
+              <Button 
+                variant="outline" 
+                onClick={() => setSearchTerm("")}
+                className="touch-target"
+              >
+                Clear Search
+              </Button>
+            }
+          />
         )}
       </div>
     </div>

@@ -6,6 +6,7 @@ import { sports } from "@/data/sports";
 import { Sport, Player } from "@/types/sports";
 import { TrendingUp, Trophy, Users, Clock } from "lucide-react";
 import { useLocation } from "wouter";
+import toast from 'react-hot-toast';
 
 const Home = () => {
   const [, navigate] = useLocation();
@@ -70,11 +71,27 @@ const Home = () => {
               No gambling. All game.
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="lg" onClick={() => navigate("/auctions")}>
+              <Button 
+                variant="hero" 
+                size="lg" 
+                className="touch-target"
+                onClick={() => {
+                  toast.success("Welcome to Sport X Cricket! 🏏");
+                  navigate("/auctions");
+                }}
+              >
                 <Trophy className="mr-2 h-5 w-5" />
                 Start Bidding
               </Button>
-              <Button variant="outline" size="lg" onClick={() => navigate("/leagues")}>
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="touch-target"
+                onClick={() => {
+                  toast.success("Finding leagues for you! 🎯");
+                  navigate("/leagues");
+                }}
+              >
                 <Users className="mr-2 h-5 w-5" />
                 Join League
               </Button>
@@ -211,10 +228,25 @@ const Home = () => {
               No bets. No chance. Just you, the game, and bragging rights.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="lg" onClick={() => navigate("/auctions")}>
+              <Button 
+                variant="hero" 
+                size="lg"
+                className="touch-target"
+                onClick={() => {
+                  toast.success("Account creation coming soon! For now, explore as guest 🚀");
+                }}
+              >
                 Create Account
               </Button>
-              <Button variant="outline" size="lg">
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="touch-target"
+                onClick={() => {
+                  toast.success("Welcome, guest! Explore all features 🎮");
+                  navigate("/auctions");
+                }}
+              >
                 Continue as Guest
               </Button>
             </div>

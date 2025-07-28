@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Player } from "@/types/sports";
 import { Clock, Users, DollarSign, TrendingUp } from "lucide-react";
+import toast from 'react-hot-toast';
 
 interface AuctionCardProps {
   player: Player;
@@ -68,8 +69,15 @@ const AuctionCard = ({
         </div>
 
         <Button 
-          onClick={() => onBid(player)}
-          className="w-full"
+          onClick={() => {
+            if (isLive) {
+              toast.success(`Bid placed on ${player.name}! 🏏`);
+            } else {
+              toast.success(`Joined auction for ${player.name}! 🎯`);
+            }
+            onBid(player);
+          }}
+          className="w-full touch-target"
           variant={isLive ? "auction" : "default"}
           size="sm"
         >

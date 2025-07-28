@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "wouter";
 import { Home, Trophy, Users, Settings, User } from "lucide-react";
+import toast from 'react-hot-toast';
 
 const Navigation = () => {
   const [location] = useLocation();
@@ -62,7 +63,12 @@ const Navigation = () => {
             <div className="text-sm text-muted-foreground">
               Credits: <span className="text-secondary font-semibold">2,500</span>
             </div>
-            <Button variant="premium" size="sm">
+            <Button 
+              variant="premium" 
+              size="sm"
+              className="touch-target"
+              onClick={() => toast.success("Credits system coming soon! 💰")}
+            >
               Get Credits
             </Button>
           </div>

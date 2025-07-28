@@ -11,13 +11,11 @@ import { useLocation } from "wouter";
 const Auctions = () => {
   const [, navigate] = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedSport, setSelectedSport] = useState("all");
-
   const handlePlayerBid = (player: Player) => {
     navigate(`/auction/${player.id}`);
   };
 
-  // Sample auction data
+  // Sample cricket auction data
   const auctions: Player[] = [
     {
       id: "1",
@@ -81,13 +79,10 @@ const Auctions = () => {
     }
   ];
 
-  const sports = ["all", "cricket", "nfl", "nba", "rugby", "tennis", "golf"];
-
   const filteredAuctions = auctions.filter(player => {
     const matchesSearch = player.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          player.position.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesSport = selectedSport === "all" || player.sport === selectedSport;
-    return matchesSearch && matchesSport;
+    return matchesSearch;
   });
 
   return (
@@ -97,10 +92,10 @@ const Auctions = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold mb-2">
-              Live Auctions
+              Cricket Auctions
             </h1>
             <p className="text-muted-foreground">
-              Bid on your favorite players and build your dream team
+              Bid on cricket stars and build your dream team
             </p>
           </div>
           <Button variant="auction" size="lg" className="mt-4 md:mt-0">
@@ -130,25 +125,11 @@ const Auctions = () => {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search players, positions..."
+              placeholder="Search cricket players, positions..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
             />
-          </div>
-          
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {sports.map((sport) => (
-              <Button
-                key={sport}
-                variant={selectedSport === sport ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSelectedSport(sport)}
-                className="whitespace-nowrap"
-              >
-                {sport === "all" ? "All Sports" : sport.toUpperCase()}
-              </Button>
-            ))}
           </div>
 
           <div className="flex gap-2">

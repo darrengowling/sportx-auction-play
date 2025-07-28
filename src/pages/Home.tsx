@@ -60,11 +60,11 @@ const Home = () => {
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               <span className="gradient-hero bg-clip-text text-transparent">
-                Sport X Pro
+                Cricket Auction Pro
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              The ultimate sports auction platform. Build your dream team, compete with friends, and become a champion.
+              The ultimate cricket auction platform. Build your dream cricket team and dominate the league.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="hero" size="lg" onClick={() => navigate("/auctions")}>
@@ -108,7 +108,7 @@ const Home = () => {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold">🔥 Live Auctions</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">🏏 Live Cricket Auctions</h2>
             <Button variant="outline" onClick={() => navigate("/auctions")}>
               View All
             </Button>
@@ -129,14 +129,14 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sports Categories */}
+      {/* Cricket Focus */}
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold">Choose Your Sport</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">Cricket Leagues</h2>
             <div className="flex items-center space-x-1 text-sm text-muted-foreground">
               <TrendingUp className="h-4 w-4" />
-              <span>6 Sports Available</span>
+              <span>IPL • BBL • CPL</span>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

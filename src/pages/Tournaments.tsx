@@ -1,41 +1,44 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calendar, Users, Trophy, Clock, Copy, Play, Search } from "lucide-react";
 import { Tournament } from "@/types/sports";
-import { Calendar, Users, DollarSign, Search, Trophy, Crown } from "lucide-react";
 import { useLocation } from "wouter";
-import { useState } from "react";
-import toast from 'react-hot-toast';
+import CreateTournamentDialog from "@/components/CreateTournamentDialog";
+import toast from "react-hot-toast";
 
 const Tournaments = () => {
   const [, navigate] = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTab, setSelectedTab] = useState("all");
-
-  // Mock tournament data - in real app, this would come from an API
-  const tournaments: Tournament[] = [
+  const [tournaments, setTournaments] = useState<Tournament[]>([
+    // Mock tournament data - in real app, this would come from an API
     {
       id: "1",
       name: "IPL 2024 Championship",
       sport: "cricket",
       realLifeTournament: "IPL 2024",
-      admin: "John Doe",
-      participants: [],
+      admin: "Current User",
+      participants: [
+        { id: "1", name: "You", budget: 100000, squad: [], userId: "1", isAdmin: false, inviteStatus: "accepted", currentBudget: 100000, totalScore: 0 },
+        { id: "2", name: "Alex Kumar", budget: 100000, squad: [], userId: "2", isAdmin: false, inviteStatus: "accepted", currentBudget: 100000, totalScore: 0 }
+      ],
       maxParticipants: 10,
-      status: "auction_scheduled",
+      status: "setup",
       budget: 100000,
-      squadRules: {
-        totalPlayers: 11,
-        batsmen: { min: 3, max: 6 },
-        bowlers: { min: 3, max: 6 },
-        allRounders: { min: 1, max: 4 },
-        wicketKeepers: { min: 1, max: 2 }
+      squadComposition: {
+        batsmen: 4,
+        bowlers: 4,
+        allRounders: 2,
+        wicketKeepers: 1
       },
       auctionDate: new Date("2024-03-15T18:00:00"),
       auctionDuration: 2,
       createdAt: new Date("2024-03-01"),
+      inviteCode: "ABC123"
     },
     {
       id: "2", 
@@ -45,18 +48,18 @@ const Tournaments = () => {
       admin: "Sarah Smith",
       participants: [],
       maxParticipants: 8,
-      status: "draft",
+      status: "auction_scheduled",
       budget: 80000,
-      squadRules: {
-        totalPlayers: 11,
-        batsmen: { min: 4, max: 6 },
-        bowlers: { min: 4, max: 6 },
-        allRounders: { min: 1, max: 3 },
-        wicketKeepers: { min: 1, max: 2 }
+      squadComposition: {
+        batsmen: 4,
+        bowlers: 4,
+        allRounders: 2,
+        wicketKeepers: 1
       },
       auctionDate: new Date("2024-03-20T19:30:00"),
       auctionDuration: 1.5,
       createdAt: new Date("2024-03-02"),
+      inviteCode: "XYZ789"
     },
     {
       id: "3",
@@ -68,34 +71,81 @@ const Tournaments = () => {
       maxParticipants: 12,
       status: "active",
       budget: 120000,
-      squadRules: {
-        totalPlayers: 11,
-        batsmen: { min: 3, max: 5 },
-        bowlers: { min: 3, max: 5 },
-        allRounders: { min: 2, max: 4 },
-        wicketKeepers: { min: 1, max: 2 }
+      squadComposition: {
+        batsmen: 3,
+        bowlers: 4,
+        allRounders: 3,
+        wicketKeepers: 1
       },
       auctionDate: new Date("2024-03-10T17:00:00"),
       auctionDuration: 2,
       createdAt: new Date("2024-02-28"),
+      inviteCode: "DEF456"
     }
-  ];
+  ]);
+
+  const handleCreateTournament = (tournamentData: Omit<Tournament, 'id' | 'createdAt'>) => {
+    const newTournament: Tournament = {
+      ...tournamentData,
+      id: Date.now().toString(),
+      createdAt: new Date()
+    };
+    
+    setTournaments(prev => [newTournament, ...prev]);
+  };
+
+  const handleJoinTournament = (tournamentId: string) => {
+    const tournament = tournaments.find(t => t.id === tournamentId);
+    if (!tournament) return;
+
+    if (tournament.participants.length >= tournament.maxParticipants) {
+      toast.error("Tournament is full!");
+      return;
+    }
+
+    setTournaments(prev => prev.map(t => 
+      t.id === tournamentId 
+        ? { ...t, participants: [...t.participants, { 
+            id: "current-user", 
+            name: "You", 
+            budget: t.budget, 
+            squad: [],
+            userId: "current-user",
+            isAdmin: false,
+            inviteStatus: "accepted",
+            currentBudget: t.budget,
+            totalScore: 0
+          }] }
+        : t
+    ));
+    
+    toast.success("Joined tournament successfully!");
+  };
+
+  const handleStartAuction = (tournamentId: string) => {
+    navigate(`/auction/${tournamentId}`);
+  };
+
+  const copyInviteCode = (code: string) => {
+    navigator.clipboard.writeText(code);
+    toast.success("Invite code copied!");
+  };
 
   const tabs = [
     { 
       value: "all", 
-      label: "All Tournaments", 
+      label: "All", 
       count: tournaments.length 
+    },
+    { 
+      value: "setup", 
+      label: "Setup", 
+      count: tournaments.filter(t => t.status === "setup").length 
     },
     { 
       value: "active", 
       label: "Active", 
       count: tournaments.filter(t => t.status === "active").length 
-    },
-    { 
-      value: "draft", 
-      label: "Draft", 
-      count: tournaments.filter(t => t.status === "draft").length 
     },
     { 
       value: "auction_scheduled", 
@@ -113,24 +163,6 @@ const Tournaments = () => {
     return matchesSearch && matchesTab;
   });
 
-  // Helper function to get status color
-  const getStatusColor = (status: Tournament["status"]) => {
-    switch (status) {
-      case "active":
-        return "default";
-      case "draft":
-        return "secondary";
-      case "auction_scheduled":
-        return "destructive";
-      case "auction_live":
-        return "default";
-      case "completed":
-        return "outline";
-      default:
-        return "default";
-    }
-  };
-
   return (
     <div className="min-h-screen pb-20 md:pt-20">
       <div className="container mx-auto px-4 py-8">
@@ -140,9 +172,7 @@ const Tournaments = () => {
             <h1 className="text-3xl font-bold">Cricket Tournaments</h1>
             <p className="text-muted-foreground">Create and join strategic cricket tournaments</p>
           </div>
-          <Button onClick={() => toast.success("Create Tournament feature coming soon!")}>
-            Create Tournament
-          </Button>
+          <CreateTournamentDialog onCreateTournament={handleCreateTournament} />
         </div>
 
         {/* Quick Stats */}
@@ -174,9 +204,9 @@ const Tournaments = () => {
           <Card>
             <CardContent className="p-4">
               <div className="text-2xl font-bold text-success">
-                ${tournaments.reduce((acc, t) => acc + (t.budget * t.participants.length), 0).toLocaleString()}
+                {tournaments.reduce((acc, t) => acc + (t.budget * t.participants.length), 0).toLocaleString()}
               </div>
-              <div className="text-sm text-muted-foreground">Total Budgets</div>
+              <div className="text-sm text-muted-foreground">Total Budget</div>
             </CardContent>
           </Card>
         </div>
@@ -211,14 +241,7 @@ const Tournaments = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTournaments.length > 0 ? (
             filteredTournaments.map((tournament) => (
-              <Card 
-                key={tournament.id} 
-                className="hover:shadow-md transition-shadow cursor-pointer"
-                onClick={() => {
-                  toast.success(`Viewing ${tournament.name}`);
-                  navigate(`/tournament/${tournament.id}`);
-                }}
-              >
+              <Card key={tournament.id} className="hover:shadow-md transition-shadow">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -227,41 +250,83 @@ const Tournaments = () => {
                         Based on {tournament.realLifeTournament}
                       </div>
                       <div className="flex items-center gap-2 mb-2">
-                        <Badge variant={getStatusColor(tournament.status)}>
-                          {tournament.status === "auction_scheduled" ? "Auction Soon" : 
-                           tournament.status.charAt(0).toUpperCase() + tournament.status.slice(1)}
+                        <Badge variant={
+                          tournament.status === 'active' ? 'default' : 
+                          tournament.status === 'auction_scheduled' ? 'secondary' : 
+                          'outline'
+                        }>
+                          {tournament.status === 'setup' ? 'Setup' :
+                           tournament.status === 'auction_scheduled' ? 'Auction Scheduled' :
+                           tournament.status === 'active' ? 'Live' : 'Completed'}
                         </Badge>
                         <span className="text-sm text-muted-foreground">
                           by {tournament.admin}
                         </span>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-lg font-semibold">
-                        {tournament.participants.length}/{tournament.maxParticipants}
-                      </div>
-                      <div className="text-xs text-muted-foreground">participants</div>
-                    </div>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Budget:</span>
-                      <span className="font-medium">${tournament.budget.toLocaleString()}</span>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Users className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm">
+                        {tournament.participants.length}/{tournament.maxParticipants} players
+                      </span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Squad Size:</span>
-                      <span className="font-medium">{tournament.squadRules.totalPlayers} players</span>
+                  </div>
+                  
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>Budget:</span>
+                      <span className="font-medium">{tournament.budget.toLocaleString()}</span>
                     </div>
-                    {tournament.auctionDate && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Auction:</span>
-                        <span className="font-medium">
-                          {tournament.auctionDate.toLocaleDateString()}
-                        </span>
+                    <div className="flex justify-between">
+                      <span>Squad Size:</span>
+                      <span className="font-medium">
+                        {tournament.squadComposition.batsmen + tournament.squadComposition.bowlers + 
+                         tournament.squadComposition.allRounders + tournament.squadComposition.wicketKeepers} players
+                      </span>
+                    </div>
+                    {tournament.inviteCode && (
+                      <div className="flex justify-between">
+                        <span>Invite Code:</span>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="h-auto p-1 font-mono"
+                          onClick={() => copyInviteCode(tournament.inviteCode!)}
+                        >
+                          {tournament.inviteCode}
+                          <Copy className="ml-1 h-3 w-3" />
+                        </Button>
                       </div>
                     )}
+                  </div>
+
+                  <div className="flex gap-2">
+                    {tournament.admin === "Current User" ? (
+                      <Button 
+                        className="flex-1" 
+                        onClick={() => handleStartAuction(tournament.id)}
+                        disabled={tournament.participants.length < 2}
+                      >
+                        <Play className="mr-2 h-4 w-4" />
+                        {tournament.status === 'setup' ? 'Start Auction' : 'Enter Auction'}
+                      </Button>
+                    ) : (
+                      <Button 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => handleJoinTournament(tournament.id)}
+                        disabled={tournament.participants.length >= tournament.maxParticipants}
+                      >
+                        {tournament.participants.some(p => p.name === "You") ? "Joined" : "Join Tournament"}
+                      </Button>
+                    )}
+                    <Button variant="ghost" size="sm">
+                      Details
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

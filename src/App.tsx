@@ -6,12 +6,12 @@ import toast, { Toaster as HotToaster } from 'react-hot-toast';
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Home from "@/pages/Home";
+import AuctionRoom from "@/pages/AuctionRoom";
 import Auctions from "@/pages/Auctions";
 import Tournaments from "@/pages/Tournaments";
 import HowItWorks from "@/pages/HowItWorks";
 import Profile from "@/pages/Profile";
-import AuctionRoom from "@/pages/AuctionRoom";
-import NotFound from "./pages/NotFound";
+import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -39,9 +39,9 @@ const App = () => (
           <Route path="/profile" component={Profile} />
           <Route path="/settings" component={() => <div className="min-h-screen pt-20 pb-20 flex items-center justify-center"><div className="text-center"><h1 className="text-2xl font-bold mb-4">Settings</h1><p className="text-muted-foreground">Coming soon...</p></div></div>} />
           <Route path="/sport/:sportId" component={() => <div className="min-h-screen pt-20 pb-20 flex items-center justify-center"><div className="text-center"><h1 className="text-2xl font-bold mb-4">Sport Details</h1><p className="text-muted-foreground">Coming soon...</p></div></div>} />
-          <Route path="/auction/:playerId" component={AuctionRoom} />
+          <Route path="/auction/:tournamentId" component={AuctionRoom} />
           <Route path="/tournament/:tournamentId" component={() => <div className="min-h-screen pt-20 pb-20 flex items-center justify-center"><div className="text-center"><h1 className="text-2xl font-bold mb-4">Tournament Details</h1><p className="text-muted-foreground">Coming soon...</p></div></div>} />
-          <Route component={NotFound} />
+          <Route component={() => <NotFound />} />
         </Switch>
       </Router>
       <Toaster />

@@ -18,39 +18,41 @@ export interface Player {
   stats: Record<string, number>;
 }
 
-export interface Tournament {
-  id: string;
-  name: string;
-  sport: string;
-  realLifeTournament: string; // e.g., "IPL 2024", "Test Series vs Australia"
-  admin: string; // Tournament admin/creator
-  participants: TournamentParticipant[];
-  maxParticipants: number;
-  status: 'draft' | 'auction_scheduled' | 'auction_live' | 'active' | 'completed';
-  budget: number; // Budget per participant
-  squadRules: SquadRules;
-  auctionDate?: Date;
-  auctionDuration: number; // Minutes per player auction
-  createdAt: Date;
+export interface SquadComposition {
+  batsmen: number;
+  bowlers: number;
+  allRounders: number;
+  wicketKeepers: number;
 }
 
 export interface TournamentParticipant {
   id: string;
-  userId: string;
   name: string;
-  isAdmin: boolean;
-  inviteStatus: 'pending' | 'accepted' | 'declined';
-  currentBudget: number;
+  userId?: string;
+  isAdmin?: boolean;
+  inviteStatus?: 'pending' | 'accepted' | 'declined';
+  currentBudget?: number;
+  totalScore?: number;
+  budget: number;
   squad: Player[];
-  totalScore: number;
 }
 
-export interface SquadRules {
-  totalPlayers: number;
-  batsmen: { min: number; max: number };
-  bowlers: { min: number; max: number };
-  allRounders: { min: number; max: number };
-  wicketKeepers: { min: number; max: number };
+export interface Tournament {
+  id: string;
+  name: string;
+  sport: string;
+  description?: string;
+  realLifeTournament: string; // e.g., "IPL 2024", "Test Series vs Australia"
+  admin: string; // Tournament admin/creator
+  participants: TournamentParticipant[];
+  maxParticipants: number;
+  status: 'draft' | 'setup' | 'auction_scheduled' | 'auction_live' | 'active' | 'completed';
+  budget: number; // Budget per participant
+  squadComposition: SquadComposition;
+  auctionDate?: Date;
+  auctionDuration: number; // in hours
+  createdAt: Date;
+  inviteCode?: string;
 }
 
 export interface AuctionBid {

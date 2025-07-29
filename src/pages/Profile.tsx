@@ -22,7 +22,7 @@ const Profile = () => {
   const recentActivity = [
     { type: "bid", player: "Virat Kohli", amount: 850000, time: "2 hours ago" },
     { type: "win", player: "MS Dhoni", amount: 750000, time: "1 day ago" },
-    { type: "join", league: "IPL Fantasy Pro", time: "2 days ago" }
+    { type: "join", league: "IPL Championship Pro", time: "2 days ago" }
   ];
 
   return (

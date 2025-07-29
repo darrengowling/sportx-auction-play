@@ -62,16 +62,8 @@ const Navigation = () => {
 
           <div className="flex items-center space-x-2">
             <div className="text-sm text-muted-foreground">
-              Credits: <span className="text-secondary font-semibold">2,500</span>
+              Welcome to <span className="text-primary font-semibold">Sport X</span>
             </div>
-            <Button 
-              variant="premium" 
-              size="sm"
-              className="touch-target"
-              onClick={() => toast.success("Credits system coming soon! 💰")}
-            >
-              Get Credits
-            </Button>
           </div>
         </div>
       </div>

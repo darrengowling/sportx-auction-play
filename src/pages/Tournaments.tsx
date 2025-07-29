@@ -18,7 +18,7 @@ const Tournaments = () => {
   const tournaments: Tournament[] = [
     {
       id: "1",
-      name: "IPL 2024 Fantasy",
+      name: "IPL 2024 Championship",
       sport: "cricket",
       realLifeTournament: "IPL 2024",
       admin: "John Doe",
@@ -60,7 +60,7 @@ const Tournaments = () => {
     },
     {
       id: "3",
-      name: "Big Bash League Fantasy",
+      name: "Big Bash League Pro",
       sport: "cricket", 
       realLifeTournament: "BBL 2024",
       admin: "Mike Johnson",
@@ -138,7 +138,7 @@ const Tournaments = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold">Cricket Tournaments</h1>
-            <p className="text-muted-foreground">Create and join cricket fantasy tournaments</p>
+            <p className="text-muted-foreground">Create and join strategic cricket tournaments</p>
           </div>
           <Button onClick={() => toast.success("Create Tournament feature coming soon!")}>
             Create Tournament

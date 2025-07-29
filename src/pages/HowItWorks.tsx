@@ -113,7 +113,7 @@ const HowItWorks = () => {
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            From creating leagues to winning competitions - your complete guide to cricket fantasy auctions
+            From creating tournaments to winning competitions - your complete guide to strategic cricket auctions
           </p>
         </div>
 
@@ -271,7 +271,7 @@ const HowItWorks = () => {
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Start?</h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Join thousands of cricket fans in the ultimate fantasy auction experience
+            Join thousands of cricket fans in the ultimate strategic auction experience
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 

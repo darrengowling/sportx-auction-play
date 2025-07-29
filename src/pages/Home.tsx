@@ -5,6 +5,8 @@ import { Sport } from "@/types/sports";
 import { TrendingUp, Trophy, Users } from "lucide-react";
 import { useLocation } from "wouter";
 import toast from 'react-hot-toast';
+import cricketStadiumHero from "@/assets/cricket-stadium-hero.jpg";
+import cricketGroundBg from "@/assets/cricket-ground-bg.jpg";
 
 // Force rebuild to clear featuredAuctions cache
 
@@ -19,7 +21,12 @@ const Home = () => {
   return (
     <div className="min-h-screen pb-20 md:pt-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-screen flex items-center md:min-h-0">
+      <section className="relative overflow-hidden min-h-screen flex items-center md:min-h-0" style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url(${cricketStadiumHero})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}>
         <div className="container mx-auto px-4 py-8 md:py-20">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
@@ -28,7 +35,7 @@ const Home = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4">
-              Fantasy cricket tournaments with live auctions
+              Strategic cricket tournaments with live auctions
             </p>
             <div className="inline-block bg-success/20 text-success px-4 py-2 rounded-full text-sm font-medium mb-8">
               No gambling. All game.
@@ -63,47 +70,36 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Strategy Over Luck Section */}
-      <section className="py-12 md:py-16 min-h-screen flex items-center md:min-h-0">
+      {/* Features Section */}
+      <section className="py-16 relative" style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url(${cricketGroundBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}>
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 mb-6">
-              <div className="w-8 h-8 rounded-full bg-gradient-primary"></div>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Strategy Over Luck</h2>
-            <p className="text-lg text-muted-foreground mb-8">Where skill beats chance</p>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Use knowledge and tactics to outperform opponents. Victory based on smarts, not chance.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* The Arena Section */}
-      <section className="py-12 md:py-16 min-h-screen flex items-center md:min-h-0">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">The arena where instinct meets insight</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Where Strategy Meets Cricket</h2>
             <p className="text-lg text-muted-foreground">
-              Where fans don't just spectate—they strategize, socialize, and stake their claim.
+              Build your squad, outbid your friends, and prove your cricket knowledge
             </p>
           </div>
           
           <div className="grid grid-cols-1 gap-6 max-w-sm mx-auto md:grid-cols-3 md:gap-8 md:max-w-4xl">
-            <div className="text-center p-8 rounded-lg border border-border bg-card/50">
+            <div className="text-center p-8 rounded-lg border border-border bg-card/80 backdrop-blur-sm">
               <div className="text-warning text-3xl mb-4">⚡</div>
               <h3 className="font-semibold mb-2 text-lg">Live Auctions</h3>
-              <p className="text-muted-foreground">Timed bidding with friends</p>
+              <p className="text-muted-foreground">Real-time bidding with timer-based competitions</p>
             </div>
-            <div className="text-center p-8 rounded-lg border border-border bg-card/50">
+            <div className="text-center p-8 rounded-lg border border-border bg-card/80 backdrop-blur-sm">
               <div className="text-success text-3xl mb-4">🏆</div>
-              <h3 className="font-semibold mb-2 text-lg">Admin Tournaments</h3>
-              <p className="text-muted-foreground">Create and manage your own</p>
+              <h3 className="font-semibold mb-2 text-lg">Tournament Admin</h3>
+              <p className="text-muted-foreground">Create custom tournaments and invite friends</p>
             </div>
-            <div className="text-center p-8 rounded-lg border border-border bg-card/50">
+            <div className="text-center p-8 rounded-lg border border-border bg-card/80 backdrop-blur-sm">
               <div className="text-primary text-3xl mb-4">📈</div>
-              <h3 className="font-semibold mb-2 text-lg">Performance Tracking</h3>
-              <p className="text-muted-foreground">Real cricket scores count</p>
+              <h3 className="font-semibold mb-2 text-lg">Live Scoring</h3>
+              <p className="text-muted-foreground">Track real cricket performance instantly</p>
             </div>
           </div>
         </div>
@@ -134,17 +130,17 @@ const Home = () => {
       </section>
 
 
-      {/* Cricket Focus */}
-      <section className="py-12 md:py-16 min-h-screen flex items-center md:min-h-0">
+      {/* Cricket Tournaments */}
+      <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Cricket Tournaments</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Cricket Tournaments</h2>
             <div className="flex items-center justify-center space-x-1 text-sm text-muted-foreground mb-8">
               <TrendingUp className="h-4 w-4" />
-              <span>IPL • BBL • CPL</span>
+              <span>IPL • BBL • CPL • Test Series</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-6 max-w-sm mx-auto md:grid-cols-2 lg:grid-cols-3 md:max-w-none">
+          <div className="grid grid-cols-1 gap-6 max-w-sm mx-auto md:grid-cols-2 lg:grid-cols-3 md:max-w-4xl">
             {sports.map((sport) => (
               <SportCard
                 key={sport.id}
@@ -159,30 +155,32 @@ const Home = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-12 md:py-16 min-h-screen flex items-center md:min-h-0">
+      <section className="py-16 bg-gradient-to-r from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Own the moment. Outbid the ordinary.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Build Your Squad?</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              No bets. No chance. Just you, the game, and bragging rights.
+              Strategy meets cricket. Knowledge beats luck. Champions are made here.
             </p>
-            <div className="flex flex-col gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 variant="hero" 
                 size="lg"
-                className="touch-target w-full sm:w-auto"
+                className="touch-target"
                 onClick={() => {
-                  toast.success("Account creation coming soon! For now, explore as guest 🚀");
+                  toast.success("Start your cricket journey! 🏏");
+                  navigate("/tournaments");
                 }}
               >
-                Create Account
+                <Trophy className="mr-2 h-5 w-5" />
+                Start Tournament
               </Button>
               <Button 
                 variant="outline" 
                 size="lg"
-                className="touch-target w-full sm:w-auto"
+                className="touch-target"
                 onClick={() => {
-                  toast.success("Learn how it works first! 📚");
+                  toast.success("Learn the rules first! 📚");
                   navigate("/how-it-works");
                 }}
               >

@@ -57,15 +57,6 @@ const Profile = () => {
               </div>
             </div>
             
-            <Button 
-              variant="outline" 
-              size="sm"
-              className="touch-target"
-              onClick={() => toast.success("Profile settings coming soon! ⚙️")}
-            >
-              <Settings className="h-4 w-4 mr-2" />
-              Edit Profile
-            </Button>
           </div>
         </Card>
 
@@ -154,32 +145,6 @@ const Profile = () => {
               </div>
             </Card>
 
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
-              <div className="space-y-3">
-                <Button 
-                  className="w-full touch-target" 
-                  variant="outline"
-                  onClick={() => toast.success("Creating new league! 🏆")}
-                >
-                  Create League
-                </Button>
-                <Button 
-                  className="w-full touch-target" 
-                  variant="outline"
-                  onClick={() => toast.success("Finding active auctions! 🎯")}
-                >
-                  Find Auctions
-                </Button>
-                <Button 
-                  className="w-full touch-target" 
-                  variant="outline"
-                  onClick={() => toast.success("Viewing leaderboard! 📊")}
-                >
-                  View Leaderboard
-                </Button>
-              </div>
-            </Card>
           </div>
         </div>
       </div>

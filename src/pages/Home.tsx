@@ -40,30 +40,18 @@ const Home = () => {
             <div className="inline-block bg-success/20 text-success px-4 py-2 rounded-full text-sm font-medium mb-8">
               No gambling. All game.
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button 
                 variant="hero" 
                 size="lg" 
                 className="touch-target"
                 onClick={() => {
-                  toast.success("Create your tournament! 🏏");
+                  toast.success("Go to Tournaments! 🏏");
                   navigate("/tournaments");
                 }}
               >
                 <Trophy className="mr-2 h-5 w-5" />
-                Create Tournament
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="touch-target"
-                onClick={() => {
-                  toast.success("Join existing tournaments! 🎯");
-                  navigate("/tournaments");
-                }}
-              >
-                <Users className="mr-2 h-5 w-5" />
-                Join Tournament
+                View Tournaments
               </Button>
             </div>
           </div>
@@ -162,29 +150,18 @@ const Home = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Strategy meets cricket. Knowledge beats luck. Champions are made here.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button 
                 variant="hero" 
                 size="lg"
                 className="touch-target"
                 onClick={() => {
-                  toast.success("Start your cricket journey! 🏏");
+                  toast.success("Go to Tournaments! 🏏");
                   navigate("/tournaments");
                 }}
               >
                 <Trophy className="mr-2 h-5 w-5" />
-                Start Tournament
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="touch-target"
-                onClick={() => {
-                  toast.success("Learn the rules first! 📚");
-                  navigate("/how-it-works");
-                }}
-              >
-                How it Works
+                Go to Tournaments
               </Button>
             </div>
           </div>

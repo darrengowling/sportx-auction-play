@@ -12,6 +12,8 @@ const Navigation = () => {
     { path: "/tournaments", icon: Trophy, label: "Tournaments" },
   ];
 
+  console.log("Navigation navItems:", navItems.length, navItems.map(item => item.label));
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card/90 backdrop-blur-xl border-t border-border md:top-0 md:bottom-auto md:bg-card/95">
       <div className="container mx-auto px-4">

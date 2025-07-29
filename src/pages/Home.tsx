@@ -6,6 +6,8 @@ import { TrendingUp, Trophy, Users } from "lucide-react";
 import { useLocation } from "wouter";
 import toast from 'react-hot-toast';
 
+// Force rebuild to clear featuredAuctions cache
+
 const Home = () => {
   const [, navigate] = useLocation();
   

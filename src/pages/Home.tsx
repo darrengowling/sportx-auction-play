@@ -35,7 +35,7 @@ const Home = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4">
-              Strategic cricket tournaments with live auctions
+              Play with friends. Bid for superstars. Build legendary teams.
             </p>
             <div className="inline-block bg-success/20 text-success px-4 py-2 rounded-full text-sm font-medium mb-8">
               No gambling. All game.
@@ -67,9 +67,9 @@ const Home = () => {
       }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Build. Bid. Conquer.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Play. Connect. Compete.</h2>
             <p className="text-lg text-muted-foreground">
-              Every decision matters. Every bid counts. Every victory is earned.
+              Connect with friends, compete in live auctions, and celebrate cricket together.
             </p>
           </div>
           

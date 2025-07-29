@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import SportCard from "@/components/SportCard";
 import { sports } from "@/data/sports";
 import { Sport } from "@/types/sports";
-import { TrendingUp, Trophy, Users } from "lucide-react";
+import { TrendingUp, Trophy, Users, Zap } from "lucide-react";
 import { useLocation } from "wouter";
 import toast from 'react-hot-toast';
 import cricketStadiumHero from "@/assets/cricket-stadium-hero.jpg";
@@ -40,18 +40,29 @@ const Home = () => {
             <div className="inline-block bg-success/20 text-success px-4 py-2 rounded-full text-sm font-medium mb-8">
               No gambling. All game.
             </div>
-            <div className="flex justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 variant="hero" 
                 size="lg" 
                 className="touch-target"
                 onClick={() => {
-                  toast.success("Go to Tournaments! 🏏");
+                  toast.success("Creating test tournament! 🏏");
+                  navigate("/tournaments?quick=test");
+                }}
+              >
+                <Zap className="mr-2 h-5 w-5" />
+                Quick Test Tournament
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="touch-target bg-background/10 text-white border-white/20 hover:bg-white/10"
+                onClick={() => {
                   navigate("/tournaments");
                 }}
               >
                 <Trophy className="mr-2 h-5 w-5" />
-                View Tournaments
+                Browse All Tournaments
               </Button>
             </div>
           </div>

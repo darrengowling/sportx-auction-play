@@ -350,26 +350,29 @@ const AuctionRoom = ({ params }: { params: { playerId: string } }) => {
                     </div>
                   </div>
 
-                  {/* Quick Bid Buttons */}
-                  <div className="grid grid-cols-3 gap-2">
+                  {/* Quick Bid Buttons - Simplified and prominent */}
+                  <div className="grid grid-cols-3 gap-3">
                     <Button 
                       variant="outline" 
                       onClick={() => quickBid(25000)}
-                      className="touch-target"
+                      className="touch-target py-3 text-lg font-semibold hover:bg-primary/10 hover:border-primary transition-colors"
+                      size="lg"
                     >
                       +$25K
                     </Button>
                     <Button 
                       variant="outline" 
                       onClick={() => quickBid(50000)}
-                      className="touch-target"
+                      className="touch-target py-3 text-lg font-semibold hover:bg-primary/10 hover:border-primary transition-colors"
+                      size="lg"
                     >
                       +$50K
                     </Button>
                     <Button 
                       variant="outline" 
                       onClick={() => quickBid(100000)}
-                      className="touch-target"
+                      className="touch-target py-3 text-lg font-semibold hover:bg-primary/10 hover:border-primary transition-colors"
+                      size="lg"
                     >
                       +$100K
                     </Button>
@@ -388,11 +391,12 @@ const AuctionRoom = ({ params }: { params: { playerId: string } }) => {
                     </div>
                     <Button 
                       onClick={placeBid}
-                      className="touch-target px-8"
+                      className="touch-target px-8 py-3 text-lg font-semibold"
                       disabled={!bidAmount}
+                      size="lg"
                     >
-                      <Gavel className="h-4 w-4 mr-2" />
-                      Bid
+                      <Gavel className="h-5 w-5 mr-2" />
+                      Place Bid
                     </Button>
                   </div>
 

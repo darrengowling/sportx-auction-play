@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Users, Trophy, Clock, Copy, Play, Search, Plus } from "lucide-react";
+import { Calendar, Users, Trophy, Clock, Copy, Play, Search, Plus, Zap, Share2, AlertCircle } from "lucide-react";
 import { Tournament } from "@/types/sports";
 import { useLocation } from "wouter";
 import CreateTournamentDialog from "@/components/CreateTournamentDialog";
+import QuickTournamentDialog from "@/components/QuickTournamentDialog";
 import toast from "react-hot-toast";
 
 const Tournaments = () => {
@@ -15,6 +16,7 @@ const Tournaments = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [inviteCode, setInviteCode] = useState("");
   const [selectedTab, setSelectedTab] = useState("all");
+  const [showQuickDialog, setShowQuickDialog] = useState(false);
   const [tournaments, setTournaments] = useState<Tournament[]>([
     // Mock tournament data - in real app, this would come from an API
     {
@@ -94,6 +96,16 @@ const Tournaments = () => {
     
     setTournaments(prev => [newTournament, ...prev]);
   };
+
+  // Check for quick tournament creation from URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('quick') === 'test') {
+      setShowQuickDialog(true);
+      // Clean URL
+      window.history.replaceState({}, '', '/tournaments');
+    }
+  }, []);
 
   const handleJoinTournament = (tournamentId: string) => {
     const tournament = tournaments.find(t => t.id === tournamentId);
@@ -189,7 +201,17 @@ const Tournaments = () => {
             <h1 className="text-3xl font-bold">Cricket Tournaments</h1>
             <p className="text-muted-foreground">Create and join strategic cricket tournaments</p>
           </div>
-          <CreateTournamentDialog onCreateTournament={handleCreateTournament} />
+          <div className="flex gap-3 mt-4 md:mt-0">
+            <Button 
+              variant="outline"
+              onClick={() => setShowQuickDialog(true)}
+              className="flex-1 md:flex-none"
+            >
+              <Zap className="mr-2 h-4 w-4" />
+              Quick Test (5 Players)
+            </Button>
+            <CreateTournamentDialog onCreateTournament={handleCreateTournament} />
+          </div>
         </div>
 
         {/* Join with Invite Code */}
@@ -324,20 +346,45 @@ const Tournaments = () => {
                       </span>
                     </div>
                     {tournament.inviteCode && (
-                      <div className="flex justify-between">
+                      <div className="flex justify-between items-center">
                         <span>Invite Code:</span>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className="h-auto p-1 font-mono"
-                          onClick={() => copyInviteCode(tournament.inviteCode!)}
-                        >
-                          {tournament.inviteCode}
-                          <Copy className="ml-1 h-3 w-3" />
-                        </Button>
+                        <div className="flex items-center gap-2">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-auto p-1 font-mono text-primary font-bold"
+                            onClick={() => copyInviteCode(tournament.inviteCode!)}
+                          >
+                            {tournament.inviteCode}
+                            <Copy className="ml-1 h-3 w-3" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              const shareText = `Join my cricket tournament "${tournament.name}"! Use invite code: ${tournament.inviteCode}`;
+                              if (navigator.share) {
+                                navigator.share({ text: shareText });
+                              } else {
+                                navigator.clipboard.writeText(shareText);
+                                toast.success("Share message copied!");
+                              }
+                            }}
+                          >
+                            <Share2 className="h-3 w-3" />
+                          </Button>
+                        </div>
                       </div>
                     )}
                   </div>
+
+                  {/* Status-specific actions */}
+                  {tournament.status === 'setup' && tournament.participants.length < 2 && tournament.admin === "Current User" && (
+                    <div className="flex items-center gap-2 p-3 bg-warning/10 border border-warning/20 rounded-lg mb-3">
+                      <AlertCircle className="h-4 w-4 text-warning" />
+                      <span className="text-sm text-warning">Need at least 2 players to start auction</span>
+                    </div>
+                  )}
 
                   <div className="flex gap-2">
                     {tournament.admin === "Current User" ? (
@@ -345,6 +392,7 @@ const Tournaments = () => {
                         className="flex-1" 
                         onClick={() => handleStartAuction(tournament.id)}
                         disabled={tournament.participants.length < 2}
+                        variant={tournament.participants.length >= 2 ? "default" : "outline"}
                       >
                         <Play className="mr-2 h-4 w-4" />
                         {tournament.status === 'setup' ? 'Start Auction' : 'Enter Auction'}
@@ -356,7 +404,7 @@ const Tournaments = () => {
                         onClick={() => handleJoinTournament(tournament.id)}
                         disabled={tournament.participants.length >= tournament.maxParticipants}
                       >
-                        {tournament.participants.some(p => p.name === "You") ? "Joined" : "Join Tournament"}
+                        {tournament.participants.some(p => p.name === "You") ? "✓ Joined" : "Join Tournament"}
                       </Button>
                     )}
                   </div>
@@ -378,6 +426,13 @@ const Tournaments = () => {
             </div>
           )}
         </div>
+
+        {/* Quick Tournament Dialog */}
+        <QuickTournamentDialog 
+          open={showQuickDialog}
+          onOpenChange={setShowQuickDialog}
+          onCreateTournament={handleCreateTournament}
+        />
       </div>
     </div>
   );

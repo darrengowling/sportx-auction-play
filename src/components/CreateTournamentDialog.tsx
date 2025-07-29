@@ -144,6 +144,7 @@ const CreateTournamentDialog = ({ onCreateTournament }: CreateTournamentDialogPr
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="4">4 Players</SelectItem>
+                  <SelectItem value="5">5 Players (Recommended for Testing)</SelectItem>
                   <SelectItem value="6">6 Players</SelectItem>
                   <SelectItem value="8">8 Players</SelectItem>
                   <SelectItem value="10">10 Players</SelectItem>

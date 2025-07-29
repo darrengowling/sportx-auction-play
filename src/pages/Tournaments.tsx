@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Users, Trophy, Clock, Copy, Play, Search } from "lucide-react";
+import { Calendar, Users, Trophy, Clock, Copy, Play, Search, Plus } from "lucide-react";
 import { Tournament } from "@/types/sports";
 import { useLocation } from "wouter";
 import CreateTournamentDialog from "@/components/CreateTournamentDialog";
@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 const Tournaments = () => {
   const [, navigate] = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
   const [selectedTab, setSelectedTab] = useState("all");
   const [tournaments, setTournaments] = useState<Tournament[]>([
     // Mock tournament data - in real app, this would come from an API
@@ -131,6 +132,22 @@ const Tournaments = () => {
     toast.success("Invite code copied!");
   };
 
+  const joinWithInviteCode = () => {
+    if (!inviteCode.trim()) {
+      toast.error("Please enter an invite code");
+      return;
+    }
+
+    const tournament = tournaments.find(t => t.inviteCode === inviteCode.trim());
+    if (!tournament) {
+      toast.error("Invalid invite code");
+      return;
+    }
+
+    handleJoinTournament(tournament.id);
+    setInviteCode("");
+  };
+
   const tabs = [
     { 
       value: "all", 
@@ -174,6 +191,24 @@ const Tournaments = () => {
           </div>
           <CreateTournamentDialog onCreateTournament={handleCreateTournament} />
         </div>
+
+        {/* Join with Invite Code */}
+        <Card className="p-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex-1">
+              <Input
+                placeholder="Enter invite code to join tournament..."
+                value={inviteCode}
+                onChange={(e) => setInviteCode(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && joinWithInviteCode()}
+              />
+            </div>
+            <Button onClick={joinWithInviteCode}>
+              <Plus className="mr-2 h-4 w-4" />
+              Join with Code
+            </Button>
+          </div>
+        </Card>
 
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">

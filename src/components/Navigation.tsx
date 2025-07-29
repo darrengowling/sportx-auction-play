@@ -12,7 +12,6 @@ const Navigation = () => {
     { path: "/tournaments", icon: Users, label: "Tournaments" },
     { path: "/how-it-works", icon: HelpCircle, label: "How it Works" },
     { path: "/profile", icon: User, label: "Profile" },
-    { path: "/settings", icon: Settings, label: "Settings" },
   ];
 
   return (
@@ -60,11 +59,6 @@ const Navigation = () => {
             ))}
           </div>
 
-          <div className="flex items-center space-x-2">
-            <div className="text-sm text-muted-foreground">
-              Welcome to <span className="text-primary font-semibold">Sport X</span>
-            </div>
-          </div>
         </div>
       </div>
     </nav>

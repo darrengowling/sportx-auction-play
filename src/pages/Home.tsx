@@ -79,9 +79,9 @@ const Home = () => {
       }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Where Strategy Meets Cricket</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Build. Bid. Conquer.</h2>
             <p className="text-lg text-muted-foreground">
-              Build your squad, outbid your friends, and prove your cricket knowledge
+              Every decision matters. Every bid counts. Every victory is earned.
             </p>
           </div>
           

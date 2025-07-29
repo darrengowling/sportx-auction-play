@@ -9,7 +9,7 @@ const Navigation = () => {
   const navItems = [
     { path: "/", icon: Home, label: "Home" },
     { path: "/auctions", icon: Trophy, label: "Auctions" },
-    { path: "/leagues", icon: Users, label: "Leagues" },
+    { path: "/tournaments", icon: Users, label: "Tournaments" },
     { path: "/how-it-works", icon: HelpCircle, label: "How it Works" },
     { path: "/profile", icon: User, label: "Profile" },
     { path: "/settings", icon: Settings, label: "Settings" },

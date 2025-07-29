@@ -18,16 +18,39 @@ export interface Player {
   stats: Record<string, number>;
 }
 
-export interface League {
+export interface Tournament {
   id: string;
   name: string;
   sport: string;
-  creator: string;
-  members: number;
-  maxMembers: number;
-  status: 'draft' | 'active' | 'completed';
-  budget: number;
+  realLifeTournament: string; // e.g., "IPL 2024", "Test Series vs Australia"
+  admin: string; // Tournament admin/creator
+  participants: TournamentParticipant[];
+  maxParticipants: number;
+  status: 'draft' | 'auction_scheduled' | 'auction_live' | 'active' | 'completed';
+  budget: number; // Budget per participant
+  squadRules: SquadRules;
   auctionDate?: Date;
+  auctionDuration: number; // Minutes per player auction
+  createdAt: Date;
+}
+
+export interface TournamentParticipant {
+  id: string;
+  userId: string;
+  name: string;
+  isAdmin: boolean;
+  inviteStatus: 'pending' | 'accepted' | 'declined';
+  currentBudget: number;
+  squad: Player[];
+  totalScore: number;
+}
+
+export interface SquadRules {
+  totalPlayers: number;
+  batsmen: { min: number; max: number };
+  bowlers: { min: number; max: number };
+  allRounders: { min: number; max: number };
+  wicketKeepers: { min: number; max: number };
 }
 
 export interface AuctionBid {

@@ -28,7 +28,7 @@ const Home = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4">
-              Cricket gaming with friends
+              Fantasy cricket tournaments with live auctions
             </p>
             <div className="inline-block bg-success/20 text-success px-4 py-2 rounded-full text-sm font-medium mb-8">
               No gambling. All game.
@@ -39,24 +39,24 @@ const Home = () => {
                 size="lg" 
                 className="touch-target"
                 onClick={() => {
-                  toast.success("Welcome to Sport X Cricket! 🏏");
-                  navigate("/auctions");
+                  toast.success("Create your tournament! 🏏");
+                  navigate("/tournaments");
                 }}
               >
                 <Trophy className="mr-2 h-5 w-5" />
-                Start Bidding
+                Create Tournament
               </Button>
               <Button 
                 variant="outline" 
                 size="lg"
                 className="touch-target"
                 onClick={() => {
-                  toast.success("Finding leagues for you! 🎯");
-                  navigate("/leagues");
+                  toast.success("Join existing tournaments! 🎯");
+                  navigate("/tournaments");
                 }}
               >
                 <Users className="mr-2 h-5 w-5" />
-                Join League
+                Join Tournament
               </Button>
             </div>
           </div>
@@ -92,18 +92,18 @@ const Home = () => {
           <div className="grid grid-cols-1 gap-6 max-w-sm mx-auto md:grid-cols-3 md:gap-8 md:max-w-4xl">
             <div className="text-center p-8 rounded-lg border border-border bg-card/50">
               <div className="text-warning text-3xl mb-4">⚡</div>
-              <h3 className="font-semibold mb-2 text-lg">Real-time tournaments</h3>
-              <p className="text-muted-foreground">Live bidding and instant results</p>
+              <h3 className="font-semibold mb-2 text-lg">Live Auctions</h3>
+              <p className="text-muted-foreground">Timed bidding with friends</p>
             </div>
             <div className="text-center p-8 rounded-lg border border-border bg-card/50">
               <div className="text-success text-3xl mb-4">🏆</div>
-              <h3 className="font-semibold mb-2 text-lg">Build dream teams</h3>
-              <p className="text-muted-foreground">Auction top cricket stars</p>
+              <h3 className="font-semibold mb-2 text-lg">Admin Tournaments</h3>
+              <p className="text-muted-foreground">Create and manage your own</p>
             </div>
             <div className="text-center p-8 rounded-lg border border-border bg-card/50">
               <div className="text-primary text-3xl mb-4">📈</div>
-              <h3 className="font-semibold mb-2 text-lg">Climb leaderboards</h3>
-              <p className="text-muted-foreground">Compete with friends</p>
+              <h3 className="font-semibold mb-2 text-lg">Performance Tracking</h3>
+              <p className="text-muted-foreground">Real cricket scores count</p>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ const Home = () => {
             </div>
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-secondary">156</div>
-              <div className="text-sm text-muted-foreground">Active Leagues</div>
+              <div className="text-sm text-muted-foreground">Active Tournaments</div>
             </div>
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-primary">$2.4M</div>
@@ -138,7 +138,7 @@ const Home = () => {
       <section className="py-12 md:py-16 min-h-screen flex items-center md:min-h-0">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Cricket Leagues</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Cricket Tournaments</h2>
             <div className="flex items-center justify-center space-x-1 text-sm text-muted-foreground mb-8">
               <TrendingUp className="h-4 w-4" />
               <span>IPL • BBL • CPL</span>

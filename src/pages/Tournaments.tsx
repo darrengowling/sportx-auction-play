@@ -324,9 +324,6 @@ const Tournaments = () => {
                         {tournament.participants.some(p => p.name === "You") ? "Joined" : "Join Tournament"}
                       </Button>
                     )}
-                    <Button variant="ghost" size="sm">
-                      Details
-                    </Button>
                   </div>
                 </CardContent>
               </Card>

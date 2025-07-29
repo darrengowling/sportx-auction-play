@@ -50,7 +50,7 @@ const SportCard = ({ sport, onSelect, activeAuctions = 0, upcomingAuctions = 0 }
           variant="outline"
           style={{ borderColor: sport.color }}
         >
-          Enter {sport.name} Auctions
+          View Tournaments
         </Button>
       </div>
     </Card>

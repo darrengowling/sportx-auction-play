@@ -14,7 +14,7 @@ const Home = () => {
   const [, navigate] = useLocation();
   
   const handleSportSelect = (sport: Sport) => {
-    navigate(`/sport/${sport.id}`);
+    navigate(`/tournaments`);
   };
 
 

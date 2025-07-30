@@ -393,34 +393,40 @@ const Tournaments = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={async () => {
+                            onClick={async (e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              console.log("🔥 SHARE BUTTON CLICKED!");
+                              
                               try {
                                 const shareText = `Join my cricket tournament "${tournament.name}"! Use invite code: ${tournament.inviteCode}`;
-                                console.log("Attempting to share:", shareText);
+                                console.log("📝 Share text:", shareText);
+                                console.log("🌐 Navigator.share available:", !!navigator.share);
+                                console.log("📋 Navigator.clipboard available:", !!navigator.clipboard);
                                 
-                                if (navigator.share && navigator.canShare) {
-                                  await navigator.share({ 
-                                    title: `Join ${tournament.name}`,
-                                    text: shareText 
-                                  });
-                                  toast.success("Shared successfully!");
-                                } else {
+                                // Simple clipboard copy first
+                                if (navigator.clipboard && navigator.clipboard.writeText) {
                                   await navigator.clipboard.writeText(shareText);
-                                  toast.success("Share message copied to clipboard!");
+                                  console.log("✅ Clipboard write successful");
+                                  toast.success("Invite message copied to clipboard! Share it with friends.");
+                                } else {
+                                  console.log("❌ Clipboard not available, trying manual copy");
+                                  // Fallback for older browsers
+                                  const textArea = document.createElement('textarea');
+                                  textArea.value = shareText;
+                                  document.body.appendChild(textArea);
+                                  textArea.focus();
+                                  textArea.select();
+                                  document.execCommand('copy');
+                                  document.body.removeChild(textArea);
+                                  toast.success("Invite message copied! Share it with friends.");
                                 }
                               } catch (error) {
-                                console.error("Share failed:", error);
-                                // Fallback to simple text copy
-                                try {
-                                  await navigator.clipboard.writeText(`Join my cricket tournament "${tournament.name}"! Use invite code: ${tournament.inviteCode}`);
-                                  toast.success("Invite code copied to clipboard!");
-                                } catch (clipboardError) {
-                                  console.error("Clipboard failed:", clipboardError);
-                                  toast.error("Unable to share. Please copy the invite code manually: " + tournament.inviteCode);
-                                }
+                                console.error("💥 Share error:", error);
+                                toast.error(`Share failed: ${error.message || 'Unknown error'}`);
                               }
                             }}
-                            title="Invite Players"
+                            title="Invite Players - Click to copy invite message"
                           >
                             <Share2 className="h-3 w-3" />
                           </Button>

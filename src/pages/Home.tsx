@@ -12,8 +12,10 @@ import cricketStadiumHero from "@/assets/cricket-stadium-hero.jpg";
 import cricketGroundBg from "@/assets/cricket-ground-bg.jpg";
 
 // Force rebuild to clear featuredAuctions cache
+console.log("🚀 Home.tsx file loaded!");
 
 const Home = () => {
+  console.log("🏠 Home component function called!");
   const [, navigate] = useLocation();
   const [showOnboarding, setShowOnboarding] = useState(false);
   

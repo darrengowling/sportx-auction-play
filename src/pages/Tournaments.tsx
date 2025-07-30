@@ -393,15 +393,34 @@ const Tournaments = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => {
-                              const shareText = `Join my cricket tournament "${tournament.name}"! Use invite code: ${tournament.inviteCode}`;
-                              if (navigator.share) {
-                                navigator.share({ text: shareText });
-                              } else {
-                                navigator.clipboard.writeText(shareText);
-                                toast.success("Share message copied!");
+                            onClick={async () => {
+                              try {
+                                const shareText = `Join my cricket tournament "${tournament.name}"! Use invite code: ${tournament.inviteCode}`;
+                                console.log("Attempting to share:", shareText);
+                                
+                                if (navigator.share && navigator.canShare) {
+                                  await navigator.share({ 
+                                    title: `Join ${tournament.name}`,
+                                    text: shareText 
+                                  });
+                                  toast.success("Shared successfully!");
+                                } else {
+                                  await navigator.clipboard.writeText(shareText);
+                                  toast.success("Share message copied to clipboard!");
+                                }
+                              } catch (error) {
+                                console.error("Share failed:", error);
+                                // Fallback to simple text copy
+                                try {
+                                  await navigator.clipboard.writeText(`Join my cricket tournament "${tournament.name}"! Use invite code: ${tournament.inviteCode}`);
+                                  toast.success("Invite code copied to clipboard!");
+                                } catch (clipboardError) {
+                                  console.error("Clipboard failed:", clipboardError);
+                                  toast.error("Unable to share. Please copy the invite code manually: " + tournament.inviteCode);
+                                }
                               }
                             }}
+                            title="Invite Players"
                           >
                             <Share2 className="h-3 w-3" />
                           </Button>

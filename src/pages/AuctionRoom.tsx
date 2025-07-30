@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
+import TournamentChat from "@/components/TournamentChat";
 import { useLocation } from "wouter";
 import { cricketPlayers } from "@/data/cricketPlayers";
 import { 
@@ -525,6 +526,22 @@ const AuctionRoom = ({ params }: { params: { playerId: string } }) => {
                 </div>
               </div>
             </Card>
+
+            {/* Tournament Chat */}
+            <TournamentChat 
+              tournamentId="1"
+              currentUser={{
+                id: "current-user",
+                name: "You",
+                isAdmin: true
+              }}
+              participants={participants.map(p => ({
+                id: p.id,
+                name: p.username,
+                isAdmin: p.id === "2"
+              }))}
+              isAuctionLive={true}
+            />
           </div>
         </div>
       </div>

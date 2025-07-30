@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Trophy, TrendingUp, Users, DollarSign, Star, Settings } from "lucide-react";
+import AchievementSystem from "@/components/AchievementSystem";
+import NotificationSystem from "@/components/NotificationSystem";
 import toast from 'react-hot-toast';
 
 const Profile = () => {
@@ -19,11 +21,24 @@ const Profile = () => {
     favoritePosition: "Batsman"
   };
 
+  const userStats = {
+    tournamentsCreated: 2,
+    tournamentsJoined: 5,
+    auctionsParticipated: 28,
+    totalBids: 156,
+    tournamentsWon: 3,
+    highestBid: 65000
+  };
+
   const recentActivity = [
     { type: "bid", player: "Virat Kohli", amount: 850000, time: "2 hours ago" },
     { type: "win", player: "MS Dhoni", amount: 750000, time: "1 day ago" },
     { type: "join", league: "IPL Championship Pro", time: "2 days ago" }
   ];
+
+  const handleClaimReward = (achievementId: string) => {
+    toast.success("Reward claimed! Check your credits.");
+  };
 
   return (
     <div className="min-h-screen pb-20 md:pt-20">
@@ -118,34 +133,19 @@ const Profile = () => {
 
           {/* Side Panel */}
           <div className="space-y-6">
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Achievements</h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <Badge variant="success">🏆</Badge>
-                  <div>
-                    <div className="font-medium text-sm">League Champion</div>
-                    <div className="text-xs text-muted-foreground">Won 3 leagues</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Badge variant="secondary">⚡</Badge>
-                  <div>
-                    <div className="font-medium text-sm">Quick Bidder</div>
-                    <div className="text-xs text-muted-foreground">Fastest bid times</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Badge variant="outline">🎯</Badge>
-                  <div>
-                    <div className="font-medium text-sm">Strategist</div>
-                    <div className="text-xs text-muted-foreground">High win rate</div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
+            <NotificationSystem 
+              userId="current-user"
+              tournamentId="1"
+            />
           </div>
+        </div>
+
+        {/* Achievement System */}
+        <div className="mt-8">
+          <AchievementSystem 
+            userStats={userStats}
+            onClaimReward={handleClaimReward}
+          />
         </div>
       </div>
     </div>

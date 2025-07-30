@@ -11,11 +11,7 @@ import toast from 'react-hot-toast';
 import cricketStadiumHero from "@/assets/cricket-stadium-hero.jpg";
 import cricketGroundBg from "@/assets/cricket-ground-bg.jpg";
 
-// Force rebuild to clear featuredAuctions cache
-console.log("🚀 Home.tsx file loaded!");
-
 const Home = () => {
-  console.log("🏠 Home component function called!");
   const [, navigate] = useLocation();
   const [showOnboarding, setShowOnboarding] = useState(false);
   
@@ -25,12 +21,8 @@ const Home = () => {
 
   // Check if user is new (in real app, this would be from user state/localStorage)
   useEffect(() => {
-    console.log("🏠 Home component loaded with all UX improvements");
-    console.log("🎯 Checking onboarding status...");
     const hasSeenOnboarding = localStorage.getItem('sport-x-onboarding-seen');
-    console.log("📋 Has seen onboarding:", hasSeenOnboarding);
     if (!hasSeenOnboarding) {
-      console.log("✨ Showing onboarding tutorial");
       setShowOnboarding(true);
     }
   }, []);

@@ -36,7 +36,7 @@ const App = () => (
           <Route path="/auctions" component={Auctions} />
           <Route path="/how-it-works" component={HowItWorks} />
           <Route path="/tournaments" component={Tournaments} />
-          <Route path="/auction/:tournamentId" component={AuctionRoom} />
+          <Route path="/auction/:playerId" component={AuctionRoom} />
           <Route path="/tournament/:tournamentId" component={() => <div className="min-h-screen pt-20 pb-20 flex items-center justify-center"><div className="text-center"><h1 className="text-2xl font-bold mb-4">Tournament Details</h1><p className="text-muted-foreground">Coming soon...</p></div></div>} />
           <Route component={() => <NotFound />} />
         </Switch>

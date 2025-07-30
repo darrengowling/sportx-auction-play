@@ -138,7 +138,9 @@ const Tournaments = () => {
   };
 
   const handleStartAuction = (tournamentId: string) => {
-    navigate(`/auction/${tournamentId}`);
+    // For demo purposes, navigate to the first available player's auction
+    // In a real app, this would show a player selection or auction lobby
+    navigate(`/auctions`);
   };
 
   const copyInviteCode = (code: string) => {

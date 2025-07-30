@@ -1,5 +1,8 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import SportCard from "@/components/SportCard";
+import TournamentGuide from "@/components/TournamentGuide";
+import OnboardingTutorial from "@/components/OnboardingTutorial";
 import { sports } from "@/data/sports";
 import { Sport } from "@/types/sports";
 import { TrendingUp, Trophy, Users, Zap } from "lucide-react";
@@ -12,9 +15,39 @@ import cricketGroundBg from "@/assets/cricket-ground-bg.jpg";
 
 const Home = () => {
   const [, navigate] = useLocation();
+  const [showOnboarding, setShowOnboarding] = useState(false);
   
   const handleSportSelect = (sport: Sport) => {
     navigate(`/tournaments`);
+  };
+
+  // Check if user is new (in real app, this would be from user state/localStorage)
+  useEffect(() => {
+    const hasSeenOnboarding = localStorage.getItem('sport-x-onboarding-seen');
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
+  }, []);
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem('sport-x-onboarding-seen', 'true');
+  };
+
+  const handleQuickAction = (action: string) => {
+    switch (action) {
+      case 'create-quick':
+        navigate("/tournaments?quick=test");
+        break;
+      case 'share-code':
+        toast.success("Tip: Use the share button next to invite codes!");
+        break;
+      case 'bid-tips':
+        toast.success("Quick Tip: Use Quick Bid buttons for fast bidding!");
+        break;
+      case 'strategy-guide':
+        navigate("/how-it-works");
+        break;
+    }
   };
 
 
@@ -153,6 +186,23 @@ const Home = () => {
         </div>
       </section>
 
+      {/* New User Guide */}
+      <section className="py-12 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2">New to Sport X Cricket?</h2>
+              <p className="text-muted-foreground">Get started in minutes with our simple guide</p>
+            </div>
+            <TournamentGuide 
+              variant="detailed" 
+              showQuickActions={true}
+              onQuickAction={handleQuickAction}
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action */}
       <section className="py-16 bg-gradient-to-r from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4">
@@ -178,6 +228,13 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Onboarding Tutorial */}
+      <OnboardingTutorial 
+        open={showOnboarding}
+        onOpenChange={setShowOnboarding}
+        onComplete={handleOnboardingComplete}
+      />
     </div>
   );
 };

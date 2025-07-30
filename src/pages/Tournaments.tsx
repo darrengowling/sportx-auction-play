@@ -9,6 +9,8 @@ import { Tournament } from "@/types/sports";
 import { useLocation } from "wouter";
 import CreateTournamentDialog from "@/components/CreateTournamentDialog";
 import QuickTournamentDialog from "@/components/QuickTournamentDialog";
+import TournamentGuide from "@/components/TournamentGuide";
+import ProgressTracker from "@/components/ProgressTracker";
 import toast from "react-hot-toast";
 
 const Tournaments = () => {
@@ -213,6 +215,34 @@ const Tournaments = () => {
             <CreateTournamentDialog onCreateTournament={handleCreateTournament} />
           </div>
         </div>
+
+        {/* Quick Guide */}
+        <TournamentGuide 
+          variant="compact" 
+          showQuickActions={false}
+          onQuickAction={(action) => {
+            if (action === 'create-quick') setShowQuickDialog(true);
+          }}
+        />
+
+        {/* Progress Tracker for current user's tournaments */}
+        {tournaments.some(t => t.admin === "Current User" || t.participants.some(p => p.name === "You")) && (
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="text-lg">Your Tournament Progress</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ProgressTracker 
+                currentStep="invite"
+                tournamentData={{
+                  participantCount: tournaments.find(t => t.admin === "Current User")?.participants.length || 0,
+                  maxParticipants: tournaments.find(t => t.admin === "Current User")?.maxParticipants || 5,
+                  auctionStarted: false
+                }}
+              />
+            </CardContent>
+          </Card>
+        )}
 
         {/* Join with Invite Code */}
         <Card className="p-4 mb-6">

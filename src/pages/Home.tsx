@@ -23,8 +23,12 @@ const Home = () => {
 
   // Check if user is new (in real app, this would be from user state/localStorage)
   useEffect(() => {
+    console.log("🏠 Home component loaded with all UX improvements");
+    console.log("🎯 Checking onboarding status...");
     const hasSeenOnboarding = localStorage.getItem('sport-x-onboarding-seen');
+    console.log("📋 Has seen onboarding:", hasSeenOnboarding);
     if (!hasSeenOnboarding) {
+      console.log("✨ Showing onboarding tutorial");
       setShowOnboarding(true);
     }
   }, []);
